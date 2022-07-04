@@ -1,15 +1,21 @@
 function Calculator() {
-    this.actions = ['+', '-', '*', '/', '^'];
-    this.history = [];
+	this.actions = ["+", "-", "*", "/", "^"];
+	this.history = [];
+	this.operations = {
+		"+": this.add,
+		"-": this.sub,
+		"*": this.multi,
+		"/": this.div,
+	};
 }
 
-Calculator.prototype.isCorrectAction = function(action) {
-    return this.actions.includes(action);
-}
+Calculator.prototype.isCorrectAction = function (action) {
+	return this.actions.includes(action);
+};
 
-Calculator.prototype.getHistoryAsString = function() {
-    return this.history.join('\n');
-}
+Calculator.prototype.getHistoryAsString = function () {
+	return this.history.join("\n");
+};
 
 // Calculator.prototype.add = function (num1, num2) {
 // 	let result = 0;
@@ -28,37 +34,56 @@ Calculator.prototype.getHistoryAsString = function() {
 // 	this.history.push(intNum1 + " + " + intNum2 + " = " + result);
 // };
 
-Calculator.prototype.mathOperation = function (num1, num2){
-	let result = 0;
-	let intNum1 = parseInt(num1);
- 	let intNum2 = parseInt(num2);
-	if (typeof intNum1 === 'number' && typeof intNum2 === 'number') {
-		if (action === '+') {
-			result = intNum1 + intNum2
-			alert(result);
-			this.history.push(intNum1 + " + " + intNum2 + " = " + result);
-		} else if (action === '-'){
-			result = intNum1 - intNum2
-			alert(result);
-			this.history.push(intNum1 + " - " + intNum2 + " = " + result);
-		} else if (action === '*'){
-			result = intNum1 * intNum2
-			alert(result);
-			this.history.push(intNum1 + " * " + intNum2 + " = " + result);
-		}
-		 else if (action === '/'){
-			result = intNum1 / intNum2
-			alert(result);
-			this.history.push(intNum1 + " / " + intNum2 + " = " + result);
-		} else if( action === '^'){
-			result = intNum1 ** intNum2
-			alert(result);
-			this.history.push(intNum1 + " ** " + intNum2 + " = " + result);
-		} else {
-			console.log(action);
-		}
-	}
-}
+Calculator.prototype.add = function (num1, num2) {
+	return num1 + num2;
+};
+Calculator.prototype.sub = function (num1, num2) {
+	return num1 - num2;
+};
+Calculator.prototype.multi = function (num1, num2) {
+	return num1 * num2;
+};
+Calculator.prototype.div = function (num1, num2) {
+	return num1 / num2;
+};
+
+Calculator.prototype.getResult = function () {
+	let result = 1;
+	let intNum1 = parseInt(number1);
+	let intNum2 = parseInt(number2);
+	const operation = action;
+
+	result = this.operations[operation](intNum1, intNum2);
+	this.history.push(intNum1 + " " + action + " " + intNum2 + " = " + result);
+	console.log(result);
+	// if (typeof intNum1 === "number" && typeof intNum2 === "number") {
+
+	// 	// if (action === '+') {
+	// 	// 	result = intNum1 + intNum2
+	// 	// 	alert(result);
+	// 	// 	this.history.push(intNum1 + " + " + intNum2 + " = " + result);
+	// 	// } else if (action === '-'){
+	// 	// 	result = intNum1 - intNum2
+	// 	// 	alert(result);
+	// 	// 	this.history.push(intNum1 + " - " + intNum2 + " = " + result);
+	// 	// } else if (action === '*'){
+	// 	// 	result = intNum1 * intNum2
+	// 	// 	alert(result);
+	// 	// 	this.history.push(intNum1 + " * " + intNum2 + " = " + result);
+	// 	// }
+	// 	//  else if (action === '/'){
+	// 	// 	result = intNum1 / intNum2
+	// 	// 	alert(result);
+	// 	// 	this.history.push(intNum1 + " / " + intNum2 + " = " + result);
+	// 	// } else if( action === '^'){
+	// 	// 	result = intNum1 ** intNum2
+	// 	// 	alert(result);
+	// 	// 	this.history.push(intNum1 + " ** " + intNum2 + " = " + result);
+	// 	// } else {
+	// 	// 	console.log(action);
+	// 	// }
+	// }
+};
 
 const calc = new Calculator();
 let action, promptContent, isCorrectAction, number1, number2;
@@ -73,7 +98,7 @@ do {
 	if (isCorrectAction) {
 		number1 = prompt("Podaj liczbę nr 1");
 		number2 = prompt("Podaj liczbę nr 2");
-		
-		calc.mathOperation(number1, number2);
+
+		calc.getResult();
 	}
 } while (calc.isCorrectAction(action));
