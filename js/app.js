@@ -1,5 +1,5 @@
 function Calculator() {
-	this.actions = ["+", "-", "*", "/", "^"];
+	// this.actions = ["+", "-", "*", "/", "^"];
 	this.history = [];
 	this.operations = {
 		"+": this.add,
@@ -10,7 +10,7 @@ function Calculator() {
 }
 
 Calculator.prototype.isCorrectAction = function (action) {
-	return this.actions.includes(action);
+	return this.operations.hasOwnProperty(action);
 };
 
 Calculator.prototype.getHistoryAsString = function () {
@@ -53,7 +53,8 @@ Calculator.prototype.getResult = function () {
 	let intNum2 = parseInt(number2);
 	const operation = action;
 
-	result = this.operations[operation](intNum1, intNum2);
+	if (typeof this.operations[operation] !== "undefined")
+		result = this.operations[operation](intNum1, intNum2);
 	this.history.push(intNum1 + " " + action + " " + intNum2 + " = " + result);
 	console.log(result);
 	// if (typeof intNum1 === "number" && typeof intNum2 === "number") {
